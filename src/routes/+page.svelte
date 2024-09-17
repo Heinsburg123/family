@@ -19,14 +19,16 @@
 </div>
 <style>
     .container{
-        display:grid;
-        grid-template-columns: 1fr 2fr;
+        display:flex;
+        height: 100vh;
+        width: 100vw;
     }
     .container-2{
         display:flex;
         justify-content: center;
         align-items: center;
-        flex-grow: 100%;
+        height: 100%;
+        width: 100%;
     }
     .menu{
         position: absolute;

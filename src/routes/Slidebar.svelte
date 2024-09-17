@@ -1,8 +1,8 @@
 <script>
-    import {fly} from 'svelte/transition'
+    import {slide} from 'svelte/transition'
 </script>
 
-<div transition:fly = {{duration:200, x:0, y:0}} class='sidebar'>
+<div transition:slide = {{duration:200, axis:'x'}} class='sidebar'>
     <button>
         LÁ THƯ
     </button>
@@ -17,7 +17,8 @@
 <style>
     .sidebar
     {
-        height: 100vh;
+        height: 100%;
+        width: 30vw;
         background-color: black;
         display:flex;
         flex-direction: column;
