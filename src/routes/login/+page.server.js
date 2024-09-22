@@ -1,4 +1,4 @@
-import {json, redirect} from '@sveltejs/kit'
+import {redirect} from '@sveltejs/kit'
 import jwt from 'jsonwebtoken'
 import {SECRET} from '$env/static/private'
 

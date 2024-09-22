@@ -21,6 +21,7 @@ export async function handle({event,resolve}){
   
   const dbconn=await connectToDB()
   event.locals.db=dbconn
+  event.locals.count=0
   dbconn.release()
   return await resolve(event)
 }

@@ -6,7 +6,6 @@ export function load(event)
     const claim=event.locals.access;
     if(!claim)
     {
-        throw redirect(307,'/login')
+        throw redirect(307,'/register')
     }
 }
-
