@@ -2,6 +2,17 @@ import {redirect} from '@sveltejs/kit'
 import jwt from 'jsonwebtoken'
 import {SECRET} from '$env/static/private'
 
+/** @type {import('./$types').PageServerLoad} */
+
+export function load(event)
+{
+    const claim=event.locals.access;
+    if(claim)
+    {
+        throw redirect(307,'/features/manual')
+    }
+}
+
 
 /** @type {import('./$types').Actions} */
 
@@ -26,7 +37,7 @@ export const actions = {
         {   
             const accessToken=jwt.sign(keyemail,SECRET)
             event.cookies.set('accessToken',accessToken,{path: '/'})
-            throw redirect(307,'/features/manual')
+            throw redirect(303,'features/manual')
         }
         else
         {
