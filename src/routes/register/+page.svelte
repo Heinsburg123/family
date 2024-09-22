@@ -9,7 +9,7 @@
 	</label>
 	<label>
 		Email
-		<input name='mail' type="mail">
+		<input name='email' type="email">
 	</label>
 	<button>Register</button>
 </form>

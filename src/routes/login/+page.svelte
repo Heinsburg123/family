@@ -1,11 +1,11 @@
 <form method="POST" action="?/login">
 	<label>
 		Email
-		<input name="user" type="user">
+		<input name="email" type="text">
 	</label>
 	<label>
 		Password
-		<input name="password" type="password">
+		<input name="password" type="text">
 	</label>
 	<button>Log in</button>
 </form>

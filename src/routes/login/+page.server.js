@@ -6,13 +6,28 @@ import {SECRET} from '$env/static/private'
 /** @type {import('./$types').Actions} */
 
 export const actions = {
-	login: async ({cookies, request}) => {
-        const data= await request.formData();
-        const username= {name:data.get('user')};
+	login: async (event) => {
+        const data= await event.request.formData();
+        const keyemail= {name:data.get('email')};
+        const email=data.get('email');
         const password=data.get('password');
-        const accessToken=jwt.sign(username,SECRET)
-        cookies.set('accessToken',accessToken,{path: '/'})
-        throw redirect(303,'/')
+        
+        const query={
+            text:'SELECT email,password FROM users WHERE email=$1',
+            values:[email]
+        }
+        const dbconn=event.locals.db
+        const res= await dbconn.query(query)
+        if(res.rows[0].password==password)
+        {   
+            const accessToken=jwt.sign(keyemail,SECRET)
+            event.cookies.set('accessToken',accessToken,{path: '/'})
+            throw redirect(303,'/')
+        }
+        else
+        {
+            return{success:false}
+        }
     }
 };
 
