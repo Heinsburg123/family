@@ -1,13 +1,6 @@
 <script>
-  import { json } from "@sveltejs/kit";
-    import Slidebar from "./Slidebar.svelte";
     let menubar=0;
-    async function start()
-    {
-        let res=await fetch('/login');
-        let num= await res.json();
-        console.log(num);
-    }
+    import Slidebar from "./Slidebar.svelte";
 </script>
 <div class=container>
     <button class='menu' on:click={()=>{
@@ -19,9 +12,6 @@
         <Slidebar></Slidebar>
     {/if}
     <div class='container-2'>
-        <button class='start' on:click={start}>
-            BẮT ĐẦU
-        </button>
     </div>
 </div>
 <style>

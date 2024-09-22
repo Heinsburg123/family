@@ -1,14 +1,26 @@
-import { connectToDB } from "$lib/db";
+import jwt from 'jsonwebtoken'
+import { SECRET } from '$env/static/private'
+import { connectToDB } from '$lib/db'
 
-export const handle = (async ({ event, resolve }) => {
-  const dbconn = await connectToDB();
-  event.locals = { dbconn };
-  const query = {
-    text: 'SELECT * FROM users',
+/** @type {import('@sveltejs/kit').Handle} */
+export async function handle({event,resolve}){
+  let token=event.cookies.get('accessToken')
+  event.locals.access=false
+  if(token!=null)
+  {
+    const claims=jwt.verify(token,SECRET)
+    if(claims)
+    {
+      event.locals.access=true
+    }
+    else
+    {
+      event.locals.access=false
+    }
   }
-  const res=await dbconn.query(query)
-  return new Response(res.rows[0].name)
-  const response = await resolve(event);
-  dbconn.release();
-  return response;
-})
+  
+  const dbconn=await connectToDB()
+  event.locals.db=dbconn
+  dbconn.release()
+  return await resolve(event)
+}
