@@ -22,7 +22,7 @@ export const actions = {
         const dbconn= event.locals.db;
         await dbconn.query(query)
 
-        throw redirect(303,'/')
+        throw redirect(307,'/features/manual')
     }
 };
 

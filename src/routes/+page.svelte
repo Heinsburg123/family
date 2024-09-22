@@ -1,35 +1,28 @@
-<script>
-    let menubar=0;
-    import Slidebar from "./Slidebar.svelte";
-</script>
-<div class=container>
-    <button class='menu' on:click={()=>{
-        menubar=1-menubar;
-    }}>
-        M
-    </button>
-    {#if menubar}
-        <Slidebar></Slidebar>
-    {/if}
-    <div class='container-2'>
-    </div>
+<div>
+    <h1>Tạo tài khoản hay đăng nhập để tiếp tục</h1>
+    <a href='/register'><button>Đăng kí</button></a>
+    <a href='login'><button>Đăng nhập</button></a>
 </div>
+
 <style>
-    .container{
-        display:flex;
-        height: 100vh;
-        width: 100vw;
-    }
-    .container-2{
-        display:flex;
+    div{
+        display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
-        height: 100%;
-        width: 100%;
+        height: 98vh;
     }
-    .menu{
-        position: absolute;
-        top:5vh;
-        left:5vw;
+    h1{
+        font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+    button
+    {
+        width: 200px;
+        height: 50px;
+        margin: 50px;
+        border-radius: 12px;
+        font-family: 'Courier New', Courier, monospace;
+        font-weight: bold;
+        font-size: large;
     }
 </style>

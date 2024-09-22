@@ -18,11 +18,15 @@ export const actions = {
         }
         const dbconn=event.locals.db
         const res= await dbconn.query(query)
+        if(res.rowCount==0)
+        {
+            return{success:false}
+        }
         if(res.rows[0].password==password)
         {   
             const accessToken=jwt.sign(keyemail,SECRET)
             event.cookies.set('accessToken',accessToken,{path: '/'})
-            throw redirect(303,'/')
+            throw redirect(307,'/features/manual')
         }
         else
         {
