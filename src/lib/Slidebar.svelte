@@ -6,9 +6,7 @@
     <button>
         LÁ THƯ
     </button>
-    <button>
-        LỊCH 
-    </button>
+    <a href='/features/calendar'><button>LỊCH</button></a>
     <button>
         QUÀ
     </button>
