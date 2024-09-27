@@ -19,12 +19,10 @@ export function load(event)
 export const actions = {
 	login: async (event) => {
         const data= await event.request.formData();
-        const keyemail= {name:data.get('email')};
         const email=data.get('email');
         const password=data.get('password');
-        
         const query={
-            text:'SELECT email,password FROM users WHERE email=$1',
+            text:'SELECT email,password,name FROM users WHERE email=$1',
             values:[email]
         }
         const dbconn=event.locals.db
@@ -35,6 +33,7 @@ export const actions = {
         }
         if(res.rows[0].password==password)
         {   
+            const keyemail= {name:res.rows[0].name};
             const accessToken=jwt.sign(keyemail,SECRET)
             event.cookies.set('accessToken',accessToken,{path: '/'})
             throw redirect(303,'features/manual')

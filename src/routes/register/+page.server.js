@@ -26,8 +26,8 @@ export const actions = {
         event.cookies.set('accessToken',accessToken,{path: '/'})
         event.locals.count+=1
         const query={
-            text:'INSERT INTO users(id,email,password,name) VALUES($1,$2,$3,$4)',
-            values:[event.locals.count,email,password,normname]
+            text:'INSERT INTO users(email,password,name) VALUES($1,$2,$3)',
+            values:[email,password,normname]
         }
         const dbconn= event.locals.db;
         await dbconn.query(query)

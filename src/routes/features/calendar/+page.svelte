@@ -2,13 +2,14 @@
     let today=new Date()
     let year=today.getFullYear();
     let days=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
-    
+    let clicked=0
     function daysInMonth (month, year) 
     {
         return new Date(year, month, 0).getDate();
     }
 
     let num_days=[];
+    let cigars=[0];
     let num;
     function put_in_days(month,year)
     {
@@ -36,12 +37,37 @@
         {/each}
         
         {#each num_days as number}
-            <div class=day>{number}</div>
+            {#if number==today.getDate()}
+                <button class='day' on:click={()=>{
+                    clicked=1-clicked
+                }} style="background-color:firebrick">{number}
+                <p>{cigars[number]}</p></button>
+            {:else}
+                <button class='day'>{number}</button>
+            {/if}
+            
         {/each}
     </div>
+    <div class='curtain' style="visibility:{clicked ? 'visible':'hidden'}"></div>
+    <div class='popup' style="visibility:{clicked ? 'visible':'hidden'}">
+        <h3>Hôm nay ba hút bao nhiêu điếu thuốc</h3>
+        <form method="POST" action="?/send_num">
+            <input name='cigar_num' type='number' value=0>
+            <button on:click={()=>{
+                clicked=0
+            }}>Xác nhận</button>
+        </form>
+    </div>
+    
 </div>
 <style>
-    .container,.header
+    .container
+    {
+        display:flex;
+        justify-content: center;
+        align-items:center;
+    }
+    .header
     {
         display: flex;
         justify-content: space-between
@@ -92,6 +118,40 @@
         font-size:20px;
         padding-top: 20px;
         padding-bottom: 20px;
+        font-weight: bold;
+        font-family: 'Courier New', Courier, monospace;
+    }
+    .curtain
+    {
+        z-index: 2;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: gray;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 50%;
+    }
+    .popup
+    {
+        position: absolute;
+        background-color:indianred;
+        z-index: 3;
+        padding:5px
+    }
+    form
+    {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        padding: 10px;
+        gap:5px;
+    }
+    p
+    {
+        font-size: small;
         font-weight: bold;
         font-family: 'Courier New', Courier, monospace;
     }
