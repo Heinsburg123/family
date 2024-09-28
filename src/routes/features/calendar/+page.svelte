@@ -1,4 +1,7 @@
 <script>
+    /** @type {import('./$types').PageServerData} */
+    export let data
+
     let today=new Date()
     let year=today.getFullYear();
     let days=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
@@ -8,8 +11,17 @@
         return new Date(year, month, 0).getDate();
     }
 
+    let cigars=[]
     let num_days=[];
-    let cigars=[0];
+
+    for(let i=0;i<=daysInMonth(today.getMonth(),today.getFullYear());i++)
+    {
+        cigars.push(0)
+    }
+    for(let i=0;i<data.arr.length;i++)
+    {
+        cigars[data.arr[i].num_day]=data.arr[i].num
+    }
     let num;
     function put_in_days(month,year)
     {
@@ -41,9 +53,11 @@
                 <button class='day' on:click={()=>{
                     clicked=1-clicked
                 }} style="background-color:firebrick">{number}
-                <p>{cigars[number]}</p></button>
+                 <p>{cigars[number]} điếu</p></button>
             {:else}
-                <button class='day'>{number}</button>
+                <button class='day'>{number}
+                    <p>{cigars[number]} điếu</p>
+                </button>
             {/if}
             
         {/each}
@@ -116,8 +130,8 @@
         background-color:bisque;
         border-style:solid;
         font-size:20px;
-        padding-top: 20px;
-        padding-bottom: 20px;
+        padding-top: 18px;
+        padding-bottom: 13px;
         font-weight: bold;
         font-family: 'Courier New', Courier, monospace;
     }
